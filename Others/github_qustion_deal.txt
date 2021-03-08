@@ -1,0 +1,6 @@
+github项目整理时遇到的问题及解决汇总
+
+Q1. 项目clone不下来？
+Desc：   unable to access 'https://github.com/HUTchengxi/CCNU_Post_Graduate.git': gnutls_handshake() failed: The TLS connection was non-properly terminated.
+A1： 将https改成git试试
+Refer：  https://blog.csdn.net/qq_42037180/article/details/112465841
