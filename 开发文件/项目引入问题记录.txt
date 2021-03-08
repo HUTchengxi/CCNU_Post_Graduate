@@ -4,3 +4,7 @@ Q1. 项目clone不下来？
 Desc：   unable to access 'https://github.com/HUTchengxi/CCNU_Post_Graduate.git': gnutls_handshake() failed: The TLS connection was non-properly terminated.
 A1： 将https改成git试试
 Refer：  https://blog.csdn.net/qq_42037180/article/details/112465841
+
+Q2：sourcetree每次提交代码都需要输入用户名和密码？
+Desc：   无
+A1：
