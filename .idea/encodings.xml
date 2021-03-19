@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="Encoding" addBOMForNewFiles="with NO BOM" />
+  <component name="Encoding" defaultCharsetForPropertiesFiles="GBK">
+    <file url="file://$PROJECT_DIR$/算法/算法分析与设计教程/3. 贪心/Coding/UniSourceMinLen/greedy.c" charset="GBK" />
+    <file url="PROJECT" charset="GBK" />
+  </component>
 </project>

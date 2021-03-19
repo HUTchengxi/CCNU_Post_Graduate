@@ -1,18 +1,10 @@
-1. （Long）
-
-    Good morning/afternoon, dear professors.  It's my honor to be here. My name is Yinjimin, from Hengyang, Hunan province.
-    I graduated from Hunan University of Technology majoring in Computer Science and Technology in twenty-eighteen, and have been working as a software developer until last May.
-    In this way, I have acquired working experience in this field.
-    I am quite sure that it is a promising profession, and I'm deeply interested in it.
-    So I have decided to dedicate the rest of my list to it.
-
-    I have lots of habbied, during my working time, I often enjoy spending time working on new technologies. As for my personality, my friends often call me an hard-working person with teamwork spirit.
-
-    Therefore, I'm confident that I can get used to the new life here within no time and survive the postgraduate years-if I'm blessed with the chance.
-
-    Again, I'd like to express my gratitude for such a precious opportunity.
-    I'm looking forward to your priceless guidance in the coming years and I'll spare no effort tot make the best of it.
-
-    That's all for my introduction, thank you!
-
-2. (Short)
+    Good morning,dear professors. It's my honor to be here. My name is Yinjimin,from Hengyang,Hunan province. I graduated
+from Hunan University of Technology majoring in Computer Science and Technology in Twenty-eighteen. And have been working
+as a software developer until last May. I'm quite sure that it's a promising profession, and I'm deeply interested in it,
+so I have decided to dedicate the rest of my life to it.
+    I have lots of habbies, especially loves to study. In my spare time, I often spend time working on new technologies.
+As for my personality, my friends often call me a hard-working person with teamwork spirit. Therefore, I'm confident that
+I can get used to the new life within no time and survive the postgraduate years if I'm blessed with the chance.
+    Again, I'd like to express my gratitude for such a precious opportunity, I'm looking forward to your priceless guidance
+in the coming years and I'll spare no effort to make the best of it.
+    That's all for my introduction, thank you
