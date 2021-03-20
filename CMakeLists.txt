@@ -15,3 +15,5 @@ add_executable(CCNU_Post_Graduate
         "算法/算法分析与设计教程/2. 分治/Coding/QuickSort/divideAndConquer.c"
         "算法/算法分析与设计教程/3. 贪心/Coding/DecimalPackage/greedy.c"
         "算法/算法分析与设计教程/3. 贪心/Coding/UniSourceMinLen/greedy.c")
+
+add_executable(Temp 临时文件/Temp.c)
