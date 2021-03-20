@@ -1,0 +1,18 @@
+# github项目整理时遇到的问题及解决汇总
+
+## Q1: 项目clone不下来？
+### Desc：   unable to access 'https://github.com/HUTchengxi/CCNU_Post_Graduate.git': gnutls_handshake() failed: The TLS connection was non-properly terminated.
+### Answer： 将https改成git试试
+### Refer：  https://blog.csdn.net/qq_42037180/article/details/112465841
+
+## Q2： sourcetree每次提交代码都需要输入用户名和密码？
+### Desc：   无
+### Answer： 修改设置的git地址
+#### 原地址：https://github.com/...
+#### 修改为：https://username:password@github.com/....   username和password使用自己的github账号密码
+### Refer：  https://blog.csdn.net/who_become_gods/article/details/109580727
+
+## Q3: 代码推送到远程报错？
+### Desc： OpenSSL SSL_connect: SSL_ERROR_SYSCALL in connection to github.com:443
+### Answer： 关闭https代理：git config --global --unset https.proxy；如果是http，则关闭http代理：git config --global --unset http.proxy
+### Refer:  https://blog.csdn.net/littlehaes/article/details/103534260
