@@ -21,3 +21,16 @@ int countBitOne(int x) {
 ```
 ### 2. 数x奇偶性判断
 ```x&1 == 0```
+
+## 数组初始化
+### 1. 赋值形式
+````
+int matrix[] = {1,2,3,4,5};
+````
+### 2. 使用memset
+```
+#include<string.h>
+
+int matrix[];
+memset(matrix, 0, sizeof(int) * 5);
+```
