@@ -68,6 +68,7 @@ int** threeSum(int* nums, int numsSize, int* returnSize, int** returnColumnSizes
         }
         for(int j=numsSize-1; j>1; j--){
             int three = -(nums[i] + nums[j]);
+            // È¥ÖØ²éÑ¯
             if(search(nums, three, i, j)) {
                 result[0] = nums[i];
                 result[1] = nums[j];
