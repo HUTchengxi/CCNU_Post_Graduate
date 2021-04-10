@@ -236,34 +236,75 @@ final float loadFactor;
         return putVal(hash(key), key, value, false, true);
     }
     
+    /**
+     * Implements Map.put and related methods
+     *
+     * @param hash hash for keyput
+     * @param onlyIfAbsent if true, don't change existing value
+     * @param evict if false, the table is in creation mode.
+     * @return previous value, or null if none
+     */
     final V putVal(int hash, K key, V value, boolean onlyIfAbsent,
                    boolean evict) {
         Node<K,V>[] tab; Node<K,V> p; int n, i;
+        /**
+         * 判断tab是不是为空,如果为空,则将容量进行初始化,也就是说,初始换操作不是在new HashMap()的时候进行的,而是在第一次put的时候进行的
+         */
         if ((tab = table) == null || (n = tab.length) == 0)
             n = (tab = resize()).length;
+ 
+        /**
+         * 初始化操作以后,根据当前key的哈希值算出最终命中到哪个桶上去，并且这个桶上如果没有元素的话,则直接new一个新节点放进去
+         */
         if ((p = tab[i = (n - 1) & hash]) == null)
             tab[i] = newNode(hash, key, value, null);
+ 
+        /**
+         * 如果对应的桶上已经有元素
+         */
         else {
             Node<K,V> e; K k;
+            /** 先判断一下这个桶里的第一个Node元素的key是不是和即将要存的key值相同，如果相同,则            
+             *把当前桶里第一个Node元素赋值给e,这个else的最下边进行了判断，如果e!=null就执行把
+             * 新value进行替换的操作 
+             */
             if (p.hash == hash &&
                 ((k = p.key) == key || (key != null && key.equals(k))))
                 e = p;
+            //如果和桶里第一个Node的key不相同,则判断当前节点是不是TreeNode(红黑树),如果是,则进 
+            //行红黑树的插入
             else if (p instanceof TreeNode)
                 e = ((TreeNode<K,V>)p).putTreeVal(this, tab, hash, key, value);
+ 
+            //如果不是红黑树,则循环链表，把数据插入链表的最后边
             else {
                 for (int binCount = 0; ; ++binCount) {
                     if ((e = p.next) == null) {
                         p.next = newNode(hash, key, value, null);
+                        //判断元素个数是不是大于等于8
                         if (binCount >= TREEIFY_THRESHOLD - 1) // -1 for 1st
+                            //转换成红黑树
                             treeifyBin(tab, hash);
                         break;
                     }
+ 
+                    /**
+                     * 如果在遍历的时候，发现key值相同（就是key已经存在了）就什么都不做跳出循环。因为在上边e = p.next的时候，已经记录e的Node值了，而下边进行了判断，如果e!=null就执行把新value进行替换的操作
+                     */
                     if (e.hash == hash &&
                         ((k = e.key) == key || (key != null && key.equals(k))))
                         break;
+                    
+                    //把当前下标赋值给p并进行下一次循环
                     p = e;
                 }
             }
+ 
+            /**
+              只要e不为空,说明要插入的key已经存在了,覆盖旧的value值,然后返回原来oldValue
+              因为只是替换了旧的value值，并没有插入新的元素，所以不需要下边的扩容判断，直接 
+               return掉
+             */
             if (e != null) { // existing mapping for key
                 V oldValue = e.value;
                 if (!onlyIfAbsent || oldValue == null)
@@ -273,8 +314,14 @@ final float loadFactor;
             }
         }
         ++modCount;
+        /**
+         * 判断容量是否已经到了需要扩充的阈值了,如果到了,则进行扩充
+         * 如果上一步已经判断key是存在的，只是替换了value值，并没有插入新的元素，所以不需要判断 
+         * 扩容，不会走这一步的
+         */
         if (++size > threshold)
             resize();
+ 
         afterNodeInsertion(evict);
         return null;
     }
@@ -282,16 +329,20 @@ final float loadFactor;
 
 ### HashMap.resize()
 ```
-    final Node<K,V>[] resize() {
+final Node<K,V>[] resize() {
         Node<K,V>[] oldTab = table;
         int oldCap = (oldTab == null) ? 0 : oldTab.length;
         int oldThr = threshold;
         int newCap, newThr = 0;
+        //  table 长度是否 > 0
         if (oldCap > 0) {
+            // table 长度 >= 2^30 则无法扩容
             if (oldCap >= MAXIMUM_CAPACITY) {
                 threshold = Integer.MAX_VALUE;
+                // 返回原有数组
                 return oldTab;
             }
+            // 没有超过最大 空间，则扩大原有的 2 倍
             else if ((newCap = oldCap << 1) < MAXIMUM_CAPACITY &&
                      oldCap >= DEFAULT_INITIAL_CAPACITY)
                 newThr = oldThr << 1; // double threshold
@@ -307,23 +358,33 @@ final float loadFactor;
             newThr = (newCap < MAXIMUM_CAPACITY && ft < (float)MAXIMUM_CAPACITY ?
                       (int)ft : Integer.MAX_VALUE);
         }
+    	// 获取新的 阈值
         threshold = newThr;
+    	// 基于新的容量 创建新的 Node 数组 和 哈希表
         @SuppressWarnings({"rawtypes","unchecked"})
             Node<K,V>[] newTab = (Node<K,V>[])new Node[newCap];
         table = newTab;
         if (oldTab != null) {
+            // 遍历原有 table 重新计算每一个元素的位置
             for (int j = 0; j < oldCap; ++j) {
                 Node<K,V> e;
+                // 对应的下标元素不为null
                 if ((e = oldTab[j]) != null) {
                     oldTab[j] = null;
+                    // 该数组下只有一个元素
                     if (e.next == null)
+                        // 存储在新的数组上
                         newTab[e.hash & (newCap - 1)] = e;
+                    // 红黑树存储 
                     else if (e instanceof TreeNode)
+                        // 将红黑树分离
                         ((TreeNode<K,V>)e).split(this, newTab, j, oldCap);
                     else { // preserve order
+                        // 链表存储
                         Node<K,V> loHead = null, loTail = null;
                         Node<K,V> hiHead = null, hiTail = null;
                         Node<K,V> next;
+                        // 获取链表的每一个节点
                         do {
                             next = e.next;
                             if ((e.hash & oldCap) == 0) {
@@ -355,6 +416,7 @@ final float loadFactor;
         }
         return newTab;
     }
+
 ```
 
 ### HashMap.treeifyBin() 
